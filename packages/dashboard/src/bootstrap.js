@@ -1,18 +1,22 @@
-import {createApp} from "vue"
-import DashBoard from "./components/DashBoard.vue"
+import { createApp } from 'vue';
+import Dashboard from './components/Dashboard.vue';
 
-const mount=(el)=>{    
-    const app=createApp(DashBoard);
-    app.mount(el);
+// Mount function to start up the app
+const mount = (el) => {
+  const app = createApp(Dashboard);
+  app.mount(el);
+};
+
+// If we are in development and in isolation,
+// call mount immediately
+if (process.env.NODE_ENV === 'development') {
+  const devRoot = document.querySelector('#_dashboard-dev-root');
+
+  if (devRoot) {
+    mount(devRoot);
+  }
 }
 
-//Checking whether the app is running in development mode
-if(process.env.NODE_ENV==='development'){
-    const devRoot=document.querySelector('#_dashboard-dev-root');
-    //Checking whether the app is running in isolation
-    if(devRoot){
-        mount(devRoot);
-    }
-}
-
-export {mount};
+// We are running through container
+// and we should export the mount function
+export { mount };
